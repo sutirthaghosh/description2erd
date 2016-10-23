@@ -5,12 +5,15 @@ from PyQt5.QtGui import *
 import nltk.data
 import nltk
 
+sentences = []
+
 
 def copyText():
     ui.textEdit_Output.setPlainText(ui.textEdit_Input.toPlainText())
 
 
 def sentence_segmentation():
+    global sentences
     sentence_detector = nltk.data.load('tokenizers/punkt/english.pickle')
     sentences = sentence_detector.tokenize(ui.textEdit_Input.toPlainText())
     ui.textEdit_Output.setPlainText("Sentence Segmentation")
@@ -19,6 +22,21 @@ def sentence_segmentation():
         ui.textEdit_Output.append(sentence)
         ui.textEdit_Output.append('\n')
         print(sentence)
+
+
+def tokenize():
+    sentence_tokens = []
+    for sentence in sentences:
+        tokens = nltk.word_tokenize(sentence)
+        words = [w.lower() for w in tokens if w.isalnum()]
+        sentence_tokens.append(words)
+    ui.textEdit_Output.setPlainText("")
+    for words in sentence_tokens:
+        for word in words:
+            ui.textEdit_Output.moveCursor(QTextCursor.End)
+            ui.textEdit_Output.insertPlainText(word+"    |   ")
+        ui.textEdit_Output.append('\n')
+        print(words)
 
 if __name__ == "__main__":
     import sys
@@ -31,6 +49,7 @@ if __name__ == "__main__":
     ##connections
     ui.textEdit_Input.textChanged.connect(copyText)
     ui.pushButton_4.clicked.connect(sentence_segmentation)
+    ui.pushButton.clicked.connect(tokenize)
     sys.exit(app.exec_())
 
 
