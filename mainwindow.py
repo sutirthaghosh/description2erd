@@ -102,8 +102,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_4.setText(_translate("MainWindow", "Sentence Segmentation"))
-        self.pushButton.setText(_translate("MainWindow", "Tokenize"))
-        self.pushButton_3.setText(_translate("MainWindow", "POS_Tag"))
+        self.pushButton.setText(_translate("MainWindow", "Word Segmentation"))
+        self.pushButton_3.setText(_translate("MainWindow", "Named Entity Recognition"))
         self.pushButton_2.setText(_translate("MainWindow", "Next"))
         self.label.setText(_translate("MainWindow", "Input your text here ...."))
         self.label_2.setText(_translate("MainWindow", "Output "))

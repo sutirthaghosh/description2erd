@@ -4,7 +4,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtGui import *
 import nltk.data
 import nltk
-
+import mkdb
 sentences = []
 
 
@@ -38,6 +38,22 @@ def tokenize():
         ui.textEdit_Output.append('\n')
         print(words)
 
+def namedEntity():
+    mkdb.createdb("words.db")
+    sentence_tokens = []
+    for sentence in sentences:
+        tokens = nltk.word_tokenize(sentence)
+        words = [w.lower() for w in tokens if w.isalnum()]
+        sentence_tokens.append(words)
+    ui.textEdit_Output.setPlainText("")
+    for words in sentence_tokens:
+        for word in words:
+            ui.textEdit_Output.moveCursor(QTextCursor.End)
+            entity = mkdb.searchname(word, 'Ename_synonym', 'Ename_base')
+            ui.textEdit_Output.insertPlainText(word+"   {"+str(entity)+"}  ")
+        ui.textEdit_Output.append('\n')
+        print(words)
+
 if __name__ == "__main__":
     import sys
     print("hi")
@@ -50,6 +66,7 @@ if __name__ == "__main__":
     ui.textEdit_Input.textChanged.connect(copyText)
     ui.pushButton_4.clicked.connect(sentence_segmentation)
     ui.pushButton.clicked.connect(tokenize)
+    ui.pushButton_3.clicked.connect(namedEntity)
     sys.exit(app.exec_())
 
 

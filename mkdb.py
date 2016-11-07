@@ -44,6 +44,7 @@ def searchname(name,stname,btname):
     row = row.fetchone()
     if row is not None:
         print(row[1])
+        return row[1]
 
 
 if __name__ == '__main__':
