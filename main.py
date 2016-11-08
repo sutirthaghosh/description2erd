@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 import nltk.data
 import nltk
 import mkdb
+import gexp
 sentences = []
 
 
